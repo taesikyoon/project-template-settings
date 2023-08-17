@@ -1,12 +1,4 @@
-import {
-  IsIn,
-  IsInt,
-  IsOptional,
-  IsString,
-  IsUrl,
-  Max,
-  Min,
-} from 'class-validator';
+import { IsIn, IsInt, IsOptional, IsString, IsUrl, Max, Min } from 'class-validator';
 import ValidateConfig from './validator.config';
 
 export class AppConfig {

@@ -2,7 +2,7 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
-import { HttpExceptionFilter } from './httpException.filter';
+import { HttpExceptionFilter } from './common/httpException.filter';
 import { AppConfig } from './config/configuration';
 
 async function bootstrap() {
@@ -19,13 +19,9 @@ async function bootstrap() {
     }),
   );
 
-  // app.enableVersioning({
-  //   type: VersioningType.URI,
-  //   defaultVersion: VERSION_NEUTRAL,
-  // });
-
-  app.setGlobalPrefix(appConfig.API_PREFIX, {
-    exclude: ['/health-check'],
+  app.enableVersioning({
+    type: VersioningType.URI,
+    prefix: 'api',
   });
 
   await app.listen(appConfig.APP_PORT);
