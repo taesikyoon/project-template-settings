@@ -2,8 +2,8 @@ import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
 import { ValidationPipe, VersioningType } from '@nestjs/common';
-import { HttpExceptionFilter } from './common/httpException.filter';
-import { AppConfig } from './config/configuration';
+import { HttpExceptionFilter } from '@common/filters/httpException.filter';
+import { AppConfig } from '@config/configurations/app';
 
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
@@ -19,10 +19,10 @@ async function bootstrap() {
     }),
   );
 
-  app.enableVersioning({
-    type: VersioningType.URI,
-    prefix: 'api',
-  });
+  // app.enableVersioning({
+  //   type: VersioningType.URI,
+  //   prefix: 'api',
+  // });
 
   await app.listen(appConfig.APP_PORT);
 }
