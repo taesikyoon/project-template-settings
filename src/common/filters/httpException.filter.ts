@@ -1,23 +1,29 @@
-import { ExceptionFilter, Catch, ArgumentsHost, HttpException } from '@nestjs/common';
-import { Request, Response } from 'express';
+import { BaseException } from '@common/exceptions/base.exception';
+import { UnexpectedException } from '@common/exceptions/customs/unexpected.exception';
+import { Catch, ArgumentsHost } from '@nestjs/common';
 
-@Catch(HttpException)
-export class HttpExceptionFilter implements ExceptionFilter {
-  catch(exception: HttpException, host: ArgumentsHost) {
+interface ExceptionFilter<T = any> {
+  catch(exception: T, host: ArgumentsHost): any;
+}
+
+@Catch()
+export class AllExceptionFilter implements ExceptionFilter {
+  catch(exception: unknown, host: ArgumentsHost): void {
     const ctx = host.switchToHttp();
-    const response = ctx.getResponse<Response>();
-    const request = ctx.getRequest<Request>();
-    const status = exception.getStatus();
-    const message =
-      typeof exception.getResponse === 'function'
-        ? exception.getResponse()['message'] || exception.message
-        : exception.message;
+    const request = ctx.getRequest();
+    const response = ctx.getResponse();
 
-    response.status(status).json({
-      statusCode: status,
-      message: message,
-      timestamp: new Date().toString(),
-      path: request.url,
+    const res = exception instanceof BaseException ? exception : new UnexpectedException();
+
+    res.timestamp = new Date().toString();
+    res.path = request.url;
+
+    response.status(res.statusCode).json({
+      errorCode: res.errorCode,
+      statusCode: res.statusCode,
+      timestamp: res.timestamp,
+      path: res.path,
+      message: res.message,
     });
   }
 }
