@@ -18,10 +18,11 @@ import { ConfigService } from '@nestjs/config';
           autoLoadEntities: true,
           logging: databaseConfig.LOGGING,
           synchronize: databaseConfig.SYNCHRONIZE,
+          charset: 'utf8mb4',
         };
       },
       inject: [ConfigService],
     }),
   ],
-}) //
+})
 export class DatabaseModule {}
