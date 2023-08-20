@@ -24,7 +24,7 @@ export class AppConfig {
 export default () => {
   const env = {
     NODE_ENV: process.env.NODE_ENV,
-    APP_PORT: parseInt(process.env.APP_PORT, 10) || 5010,
+    APP_PORT: process.env.APP_PORT || 5010,
     APP_NAME: process.env.APP_NAME,
     API_PREFIX: process.env.API_PREFIX,
     TZ: process.env.TZ,

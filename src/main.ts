@@ -1,8 +1,8 @@
 import { NestFactory } from '@nestjs/core';
 import { AppModule } from './app.module';
 import { ConfigService } from '@nestjs/config';
-import { ValidationPipe, VersioningType } from '@nestjs/common';
-import { HttpExceptionFilter } from '@common/filters/httpException.filter';
+import { ValidationPipe } from '@nestjs/common';
+import { AllExceptionFilter } from '@common/filters/httpException.filter';
 import { AppConfig } from '@config/configurations/app';
 
 async function bootstrap() {
@@ -10,7 +10,7 @@ async function bootstrap() {
   const configService = app.get(ConfigService);
   const appConfig: AppConfig = configService.get('APP');
 
-  app.useGlobalFilters(new HttpExceptionFilter());
+  app.useGlobalFilters(new AllExceptionFilter());
   app.useGlobalPipes(
     new ValidationPipe({
       whitelist: true,
@@ -18,11 +18,6 @@ async function bootstrap() {
       transform: true,
     }),
   );
-
-  // app.enableVersioning({
-  //   type: VersioningType.URI,
-  //   prefix: 'api',
-  // });
 
   await app.listen(appConfig.APP_PORT);
 }
