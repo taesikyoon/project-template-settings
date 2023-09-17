@@ -21,7 +21,8 @@
       "@module/*": ["src/modules/*"],
       "@config/*": ["src/config/*"],
       "@database/*": ["src/database/*"],
-      "@common/*": ["src/common/*"]
+      "@common/*": ["src/common/*"],
+      "@logger/*": ["src/logger/*"]
     }
   }
 }

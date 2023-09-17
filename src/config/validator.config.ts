@@ -14,7 +14,6 @@ function ValidateConfig<T extends object>(config: Record<string, unknown>, envCl
   if (errors.length > 0) {
     throw new Error(errors.toString());
   }
-  return ValidateConfig;
 }
 
 export default ValidateConfig;

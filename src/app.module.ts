@@ -1,15 +1,14 @@
-import { Logger, Module } from '@nestjs/common';
+import { Module } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { ConfigModule } from '@config/config.module';
 import { DatabaseModule } from '@database/database.module';
 import { UserModule } from './user/user.module';
-import { LoggingInterceptor } from '@common/interceptor/logger.interceptor';
-import { APP_INTERCEPTOR } from '@nestjs/core';
+import { WinstonLoggingModule } from '@logger/winston/winston.test.module';
 
 @Module({
-  imports: [ConfigModule, DatabaseModule, UserModule],
+  imports: [ConfigModule, DatabaseModule, UserModule, WinstonLoggingModule],
   controllers: [AppController],
-  providers: [AppService, Logger, { provide: APP_INTERCEPTOR, useClass: LoggingInterceptor }],
+  providers: [AppService],
 })
 export class AppModule {}

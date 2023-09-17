@@ -1,16 +1,11 @@
-import { createLogger, format, transports } from 'winston';
-
-const { combine, timestamp, prettyPrint } = format;
+import { LoggerOptions } from './winston.config';
 
 class WinstonLogger {
   private readonly logger;
   private static instance: WinstonLogger;
 
   constructor() {
-    this.logger = createLogger({
-      format: combine(timestamp(), prettyPrint()),
-      transports: [new transports.File({ filename: 'logger.log' })],
-    });
+    this.logger = LoggerOptions;
   }
 
   static getInstance(): WinstonLogger {
@@ -20,20 +15,24 @@ class WinstonLogger {
     return WinstonLogger.instance;
   }
 
-  log(message: string) {
-    this.logger.info(message);
+  log(message: string, context?: any) {
+    this.logger.info({ message, context });
   }
 
   error(message: string, context?: any, stack?: any) {
     this.logger.error({ message, context, stack });
   }
 
-  warn(message: string) {
-    this.logger.warn(message);
+  warn(message: string, context?: any) {
+    this.logger.warn({ message, context });
   }
 
-  debug(message: string) {
-    this.logger.debug(message);
+  debug(message: string, context?: any) {
+    this.logger.debug({ message, context });
+  }
+
+  verbose(message: string, context?: any) {
+    this.logger.trace({ message, context });
   }
 }
 
