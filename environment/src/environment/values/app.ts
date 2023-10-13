@@ -1,5 +1,5 @@
-import { IsIn, IsInt, IsOptional, IsString, Max, Min } from 'class-validator';
-import ValidateConfig from '@config/validator.config';
+import { IsIn, IsInt, IsOptional, Max, Min } from 'class-validator';
+import ValidateConfig from '../environment.validator';
 
 export class AppConfig {
   @IsIn(['local', 'development', 'production'])
@@ -11,12 +11,6 @@ export class AppConfig {
   @IsOptional()
   APP_PORT: number;
 
-  @IsString()
-  APP_NAME: string;
-
-  @IsString()
-  API_PREFIX: string;
-
   @IsIn(['Asia/Seoul'])
   TZ: string;
 }
@@ -24,9 +18,7 @@ export class AppConfig {
 export default () => {
   const env = {
     NODE_ENV: process.env.NODE_ENV,
-    APP_PORT: process.env.APP_PORT || 5010,
-    APP_NAME: process.env.APP_NAME,
-    API_PREFIX: process.env.API_PREFIX,
+    APP_PORT: process.env.APP_PORT,
     TZ: process.env.TZ,
   };
 
