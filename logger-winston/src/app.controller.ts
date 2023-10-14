@@ -14,7 +14,11 @@ export class AppController {
   useErrorLog(@Query('message') message: string): string {
     if (!message) message = 'Test Message';
 
-    Logger.error(message);
+    try {
+      throw new Error(message);
+    } catch (err) {
+      Logger.error(err.message, null, err.stack);
+    }
     return 'Check the log file - Error Level';
   }
 
