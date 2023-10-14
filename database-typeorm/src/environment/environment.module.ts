@@ -10,7 +10,5 @@ import { ConfigModule } from '@nestjs/config';
       load: [databaseConfig],
     }),
   ],
-  controllers: [],
-  providers: [],
 })
 export class EnvironmentModule {}

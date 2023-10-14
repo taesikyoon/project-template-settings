@@ -8,8 +8,8 @@ _**- 현재 이 템플릿에서는 환경변수 템플릿을 기본전제로 시
 
 추 후 업데이트 내용
 
-1. typeorm으로 데이터베이스 연결하기
-1. typeorm을 이용한 migration과 seed 작업하기
+1. typeorm으로 데이터베이스 연결하기 [O]
+1. typeorm을 이용한 migration과 seed 작업하기 [O]
 1. 액티브 방식으로 데이터 CRUD하기
 1. 매퍼 방식으로 데이터 CRUD하기
 1. queryBuilder를 이용한 CRUD 작업하기
