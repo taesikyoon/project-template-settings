@@ -24,23 +24,23 @@
     "migration:generate": "npm run typeorm:migration migration:generate ./src/database/migrations/$npm_config_name",
     "migration:run": "npm run typeorm:migration migration:run",
     "migration:revert": "npm run typeorm:migration migration:revert",
-    "typeorm:seed": "node -r tsconfig-paths/register -r ts-node/register ./node_modules/typeorm/cli -d ./src/database/configs/seed.config.ts",
-    "seed:create": "npm run typeorm migration:create ./src/database/seeds/$npm_config_name",
-    "seed:run": "npm run typeorm:seed migration:run",
-    "seed:revert": "npm run typeorm:seed migration:revert"
+    "db:create": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs db:create -d ./src/database/configs/migration.config.ts",
+    "db:drop": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs db:drop -d ./src/database/configs/migration.config.ts",
+    "seed:create": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs seed:create --name ./src/database/seeds/$npm_config_name.ts",
+    "seed:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-extension/bin/cli.cjs seed:run -d ./src/database/configs/seeder.config.ts --name ./src/database/seeds/$npm_config_name.ts"
   },
   "dependencies": {
     "@nestjs/common": "^10.0.0",
     "@nestjs/config": "^3.1.1",
     "@nestjs/core": "^10.0.0",
+    "@nestjs/mapped-types": "^2.0.4",
     "@nestjs/platform-express": "^10.0.0",
-    "@nestjs/typeorm": "^10.0.0",
-    "class-transformer": "^0.5.1",
-    "class-validator": "^0.14.0",
-    "mysql2": "^3.6.1",
+    "@nestjs/typeorm": "^10.0.1",
+    "mysql2": "^3.6.5",
     "reflect-metadata": "^0.1.13",
     "rxjs": "^7.8.1",
-    "typeorm": "^0.3.17"
+    "typeorm": "^0.3.17",
+    "typeorm-extension": "^3.2.0"
   },
   "devDependencies": {
     "@nestjs/cli": "^10.0.0",

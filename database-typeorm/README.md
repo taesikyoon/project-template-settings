@@ -1,16 +1,88 @@
-npm install --save @nestjs/typeorm typeorm mysql2 @nestjs/config class-validator class-transformer
+# NestJS TypeORM Database Template
 
-# 데이터베이스 - typeorm 템플릿
+_**- This template assumes the use of environment variables as a default premise, so please refer to it**_
 
-_**- 현재 이 템플릿에서는 환경변수 템플릿을 기본전제로 시작되고 있으니 참고해주세요**_
+- [Go to Environment Variable Template README.md Page](https://github.com/taesikyoon/project-template-settings/blob/main/environment/README.md)
 
-- [환경 변수 템플릿 README.md 페이지로 가기](https://github.com/taesikyoon/project-template-settings/blob/main/environment/README.md)
+**Perform migration and seeding tasks using TypeORM and typeorm-extension!**
 
-추 후 업데이트 내용
+1. Create and delete databases
+2. Generate and delete seeds
+3. Apply changes to the database safely
 
-1. typeorm으로 데이터베이스 연결하기 [O]
-1. typeorm을 이용한 migration과 seed 작업하기 [O]
-1. 액티브 방식으로 데이터 CRUD하기
-1. 매퍼 방식으로 데이터 CRUD하기
-1. queryBuilder를 이용한 CRUD 작업하기
-1. typeorm으로 각 테이블 관계설정 하기(mysql)
+### Install List
+
+```
+- @nestjs/typeorm
+- typeorm
+- typeorm-extension
+- mysql2
+- @nestjs/config
+- class-validator
+- class-transformer
+```
+
+**[Click Github [typeorm-extension] Click](https://github.com/tada5hi/typeorm-extension)**
+
+## Execute Scripts
+
+```
+"typeorm": "node -r tsconfig-paths/register -r ts-node/register ./node_modules/typeorm/cli",
+"typeorm:migration": "node -r tsconfig-paths/register -r ts-node/register ./node_modules/typeorm/cli -d ./src/database/configs/migration.config.ts",
+"migration:create": "npm run typeorm migration:create ./src/database/migrations/$npm_config_name",
+"migration:generate": "npm run typeorm:migration migration:generate ./src/database/migrations/$npm_config_name",
+"migration:run": "npm run typeorm:migration migration:run",
+"migration:revert": "npm run typeorm:migration migration:revert",
+"db:create": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs db:create -d ./src/database/configs/migration.config.ts",
+"db:drop": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs db:drop -d ./src/database/configs/migration.config.ts",
+"seed:create": "ts-node ./node_modules/typeorm-extension/bin/cli.cjs seed:create --name ./src/database/seeds/$npm_config_name.ts",
+"seed:run": "ts-node -r tsconfig-paths/register ./node_modules/typeorm-extension/bin/cli.cjs seed:run -d ./src/database/configs/seeder.config.ts --name ./src/database/seeds/$npm_config_name.ts"
+
+```
+
+### Database Schema Create
+
+```
+npm run db:create
+```
+
+### Database Schema Drop
+
+```
+npm run db:drop
+```
+
+## Seed Generation
+
+```
+
+npm run seed:create --name=<name>
+
+# Example: npm run seed:create --name=user -> 1700746434744-user
+```
+
+### Seed Execution
+
+```
+npm run seed:run --name=<name>
+
+# Example: npm run seed:create --name=user -> 1700746434744-user
+```
+
+### Database Migration Generate
+
+```
+npm run migration:generate
+```
+
+### Database Migration Run
+
+```
+npm run migration:run
+```
+
+### Database Migration Revert
+
+```
+npm run migration:revert
+```
